@@ -76,7 +76,7 @@ const FeedInput = ({ onSubmit }: Props) => {
       <Input placeholder={"What's happening?"} value={content} onChange={e => setContent(e.target.value)} wrap={'soft'} />
       <BottomBar>
         <FactCheckbox type={'checkbox'} checked={isFake} onChange={() => setFake(!isFake)} />
-        <p className={'desc'}>This post is Fake news (It is not shown to other users)</p>
+        <p className={'desc'}>This post is Fake news (Fake news or not is not visible to others.)</p>
         <PostButton className={content === '' ? 'inactive' : ''} onClick={handlePost}>Post</PostButton>
       </BottomBar>
     </Container>
