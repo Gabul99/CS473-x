@@ -5,4 +5,5 @@ export interface Feed {
   time: string;
   likeCount: number;
   isLiked: boolean;
+  isDeleted: boolean;
 }

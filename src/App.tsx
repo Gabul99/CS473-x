@@ -7,6 +7,7 @@ import {useRecoilValue} from "recoil";
 import {userAtom} from "./store/UserAtom";
 import UserType from "./data/UserEnum";
 import FeedPage from "./pages/FeedPage";
+import AdminPage from "./pages/AdminPage";
 
 const Container = styled.div`
   width: 100vw;
@@ -23,7 +24,8 @@ function App() {
   return (
     <Container>
       {user === null && <LoginPage />}
-      {user !== null && user?.userType !== UserType.ADMIN && <FeedPage />}
+      {user !== null && user.userType !== UserType.ADMIN && <FeedPage />}
+      {user !== null && user.userType === UserType.ADMIN && <AdminPage />}
     </Container>
   );
 }

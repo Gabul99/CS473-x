@@ -17,6 +17,10 @@ const Colors = {
   BLUE_MEDIUM: '#0151CA',
   BLUE_LIGHT: '#E8F1FF',
   BLUE_BACKGROUND: '#F2F6FC',
+
+  RED_DEEP: '#DC1800',
+  RED_MEDIUM: '#D83420',
+  RED_LIGHT: '#FFEFED',
 };
 
 export default Colors;
