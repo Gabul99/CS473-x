@@ -43,9 +43,8 @@ const PostButton = styled.div`
   background-color: ${Colors.BLUE_MEDIUM};
   cursor: pointer;
   box-sizing: border-box;
-  padding: 4px 8px;
+  padding: 4px 12px;
   
-  font-family: "bold", serif;
   color: ${Colors.WHITE100};
   
   &.inactive {
@@ -53,16 +52,32 @@ const PostButton = styled.div`
   }
 `;
 
-const FeedInput = () => {
+interface Props {
+  onSubmit: (content: string, isFake: boolean, completion: () => void) => void;
+}
+
+const FeedInput = ({ onSubmit }: Props) => {
   const [content, setContent] = useState<string>('');
-  const [isFact, setFact] = useState<boolean>(false);
+  const [isFake, setFake] = useState<boolean>(false);
+
+  const handlePost = () => {
+    if (content === '') {
+      window.alert('Please type something to post!')
+      return;
+    }
+    onSubmit(content, isFake, () => {
+      setContent('');
+      setFake(false);
+    })
+  }
+
   return (
     <Container>
       <Input placeholder={"What's happening?"} value={content} onChange={e => setContent(e.target.value)} wrap={'soft'} />
       <BottomBar>
-        <FactCheckbox type={'checkbox'} checked={isFact} onChange={() => setFact(!isFact)} />
+        <FactCheckbox type={'checkbox'} checked={isFake} onChange={() => setFake(!isFake)} />
         <p className={'desc'}>This post is Fake news (It is not shown to other users)</p>
-        <PostButton className={content === '' ? 'inactive' : ''}>POST</PostButton>
+        <PostButton className={content === '' ? 'inactive' : ''} onClick={handlePost}>Post</PostButton>
       </BottomBar>
     </Container>
   );

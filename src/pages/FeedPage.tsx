@@ -70,10 +70,25 @@ const FeedPage = () => {
       })
   }
 
+  const uploadFeed = (content: string, isFake: boolean, completion: () => void) => {
+    axios.post(`http://localhost:8080/feed`, {
+      nickname: user?.nickname ?? '',
+      content,
+      isFake,
+    })
+      .then(() => {
+        completion();
+        loadFeeds();
+      })
+      .catch(() => {
+        console.log('Fail to upload');
+      })
+  }
+
   return (
     <Container>
       <Title>Feed</Title>
-      <FeedInput />
+      <FeedInput onSubmit={uploadFeed} />
       <ToolBar refreshing={isRefreshing}>
         <div className={'refresh'} onClick={loadFeeds}>REFRESH</div>
       </ToolBar>
