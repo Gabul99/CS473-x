@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-import Colors from "./style/Colors";
-import UserType from "./data/UserEnum";
+import Colors from "../style/Colors";
+import UserType from "../data/UserEnum";
 import { useSetRecoilState } from "recoil";
-import {userAtom} from "./store/UserAtom";
+import {userAtom} from "../store/UserAtom";
 
 const Container = styled.div`
   width: 100%;
