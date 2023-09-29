@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import Colors from "../style/Colors";
 import axios from "axios";
@@ -65,6 +65,10 @@ const AdminPage = () => {
   const user = useRecoilValue(userAtom);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
   const [feeds, setFeeds] = useState<Feed[]>([]);
+
+  useEffect(() => {
+    loadFeeds();
+  }, []);
 
   const loadFeeds = () => {
     setRefreshing(true);
