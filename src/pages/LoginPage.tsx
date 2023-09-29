@@ -82,11 +82,6 @@ const LoginPage = () => {
   const [nickname, setNickname] = useState<string>('');
   const setUserInfo = useSetRecoilState(userAtom);
 
-  useEffect(() => {
-    axios.get('https://cs473-test-b04585b2b629.herokuapp.com/')
-      .then(res => console.log(res));
-  }, []);
-
   const onEnter = () => {
     if (nickname === '' || !userType) {
       window.alert('Please type nickname!');

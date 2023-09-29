@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import FeedInput from "../component/FeedInput";
 import FeedItem from "../component/FeedItem";
 import Colors from "../style/Colors";
+import {Feed} from "../data/Feed";
+import {useRecoilValue} from "recoil";
+import {userAtom} from "../store/UserAtom";
+import axios from "axios";
 
 const Container = styled.div`
   width: 640px;
@@ -32,6 +36,7 @@ const ToolBar = styled.div<{refreshing: boolean}>`
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
+  flex-shrink: 0;
   
   .refresh {
     font-size: 14px;
@@ -43,17 +48,37 @@ const ToolBar = styled.div<{refreshing: boolean}>`
 `;
 
 const FeedPage = () => {
+  const user = useRecoilValue(userAtom);
   const [isRefreshing, setRefreshing] = useState<boolean>(false);
+  const [feeds, setFeeds] = useState<Feed[]>([]);
+
+  useEffect(() => {
+    loadFeeds();
+  }, []);
+
+  const loadFeeds = () => {
+    setRefreshing(true);
+    // axios.get<Feed[]>(`https://cs473-test-b04585b2b629.herokuapp.com/feed?nickname=${user?.nickname ?? ''}`)
+    axios.get<Feed[]>(`http://localhost:8080/feed?nickname=${user?.nickname ?? ''}`)
+      .then(res => {
+        setFeeds(res.data);
+        setRefreshing(false);
+      })
+      .catch(e => {
+        console.log(e);
+        setRefreshing(false);
+      })
+  }
 
   return (
     <Container>
       <Title>Feed</Title>
       <FeedInput />
       <ToolBar refreshing={isRefreshing}>
-        <div className={'refresh'}>REFRESH</div>
+        <div className={'refresh'} onClick={loadFeeds}>REFRESH</div>
       </ToolBar>
       <FeedList>
-        <FeedItem />
+        {feeds.map(feed => <FeedItem feed={feed}/>)}
       </FeedList>
     </Container>
   );

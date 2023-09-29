@@ -23,7 +23,7 @@ function App() {
   return (
     <Container>
       {user === null && <LoginPage />}
-      {user?.userType !== UserType.ADMIN && <FeedPage />}
+      {user !== null && user?.userType !== UserType.ADMIN && <FeedPage />}
     </Container>
   );
 }

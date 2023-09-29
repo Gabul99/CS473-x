@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {ReactComponent as EmptyHeart} from '../icon/heart-regular.svg'
 import {ReactComponent as FillHeart} from '../icon/heart-solid.svg'
 import Colors from "../style/Colors";
+import {Feed} from "../data/Feed";
 
 const Container = styled.div`
   width: 100%;
@@ -47,25 +48,25 @@ const ToolBar = styled.div`
   }
 `;
 
-const FeedItem = () => {
-  const author = 'heechan';
-  const content = 'hihihiihihihiihihihiihihihiihihihiihih ihiihihihiihihihiihihihiihihi hiihihihiihihihiihih ihiihihihiihihih iihihihiihihihiihih ihiihihihii';
-  const isLiked = true;
+interface Props {
+  feed: Feed;
+}
 
+const FeedItem = ({ feed }: Props) => {
   return (
     <Container>
-      <Author>{author}</Author>
-      <Content>{content}</Content>
+      <Author>{feed.author}</Author>
+      <Content>{feed.content}</Content>
       <ToolBar>
         <div className={'icon-button'}>
-          {isLiked &&
+          {feed.isLiked &&
           <FillHeart fill={Colors.BLUE_MEDIUM} width={'16px'} height={'16px'}/>
           }
-          {!isLiked &&
+          {!feed.isLiked &&
           <EmptyHeart fill={Colors.BLUE_MEDIUM} width={'16px'} height={'16px'}/>
           }
         </div>
-        <div className={'count'}>10</div>
+        <div className={'count'}>{feed.likeCount}</div>
       </ToolBar>
     </Container>
   );
