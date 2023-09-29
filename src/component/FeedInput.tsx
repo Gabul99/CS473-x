@@ -8,6 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid ${Colors.BLUE_LIGHT};
+  flex-shrink: 0;
 `;
 
 const Input = styled.textarea`
