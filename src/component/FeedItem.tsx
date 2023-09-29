@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
 import {ReactComponent as EmptyHeart} from '../icon/heart-regular.svg'
 import {ReactComponent as FillHeart} from '../icon/heart-solid.svg'
 import Colors from "../style/Colors";
 import {Feed} from "../data/Feed";
+import axios from "axios";
+import {useRecoilValue} from "recoil";
+import {userAtom} from "../store/UserAtom";
 
 const Container = styled.div`
   width: 100%;
@@ -53,20 +56,38 @@ interface Props {
 }
 
 const FeedItem = ({ feed }: Props) => {
+  const user = useRecoilValue(userAtom);
+  const [isLiked, setLiked] = useState<boolean>(feed.isLiked);
+  const [likeCountExceptMe, setLikeCountExceptMe] = useState<number>(feed.isLiked ? (feed.likeCount - 1) : feed.likeCount);
+
+  const sendLike = (value: boolean) => {
+    setLiked(value)
+    axios.post(`http://localhost:8080/feed/like`, {
+      nickname: user?.nickname ?? '',
+      feedId: feed.id
+    })
+      .then(() => {
+
+      })
+      .catch(() => {
+        setLiked(!value);
+      })
+  }
+
   return (
     <Container>
       <Author>{feed.author}</Author>
       <Content>{feed.content}</Content>
       <ToolBar>
-        <div className={'icon-button'}>
-          {feed.isLiked &&
+        <div className={'icon-button'} onClick={() => sendLike(!isLiked)}>
+          {isLiked &&
           <FillHeart fill={Colors.BLUE_MEDIUM} width={'16px'} height={'16px'}/>
           }
-          {!feed.isLiked &&
+          {!isLiked &&
           <EmptyHeart fill={Colors.BLUE_MEDIUM} width={'16px'} height={'16px'}/>
           }
         </div>
-        <div className={'count'}>{feed.likeCount}</div>
+        <div className={'count'}>{likeCountExceptMe + (isLiked ? 1 : 0)}</div>
       </ToolBar>
     </Container>
   );
