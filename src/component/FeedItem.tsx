@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import styled from "styled-components";
 import {ReactComponent as EmptyHeart} from '../icon/heart-regular.svg'
 import {ReactComponent as FillHeart} from '../icon/heart-solid.svg'
@@ -64,7 +64,16 @@ interface Props {
 const FeedItem = ({ feed }: Props) => {
   const user = useRecoilValue(userAtom);
   const [isLiked, setLiked] = useState<boolean>(feed.isLiked);
-  const [likeCountExceptMe, setLikeCountExceptMe] = useState<number>(feed.isLiked ? (feed.likeCount - 1) : feed.likeCount);
+
+  const correctLikeCount = useMemo(() => {
+    if (!isLiked && feed.isLiked) {
+      return -1;
+    }
+    if (isLiked && !feed.isLiked) {
+      return 1;
+    }
+    return 0;
+  }, [isLiked, feed]);
 
   const sendLike = (value: boolean) => {
     setLiked(value)
@@ -94,7 +103,7 @@ const FeedItem = ({ feed }: Props) => {
           <EmptyHeart fill={Colors.BLUE_MEDIUM} width={'16px'} height={'16px'}/>
           }
         </div>
-        <div className={'count'}>{likeCountExceptMe + (isLiked ? 1 : 0)}</div>
+        <div className={'count'}>{feed.likeCount + correctLikeCount}</div>
       </ToolBar>
     </Container>
   );
