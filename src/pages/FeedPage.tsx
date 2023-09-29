@@ -63,7 +63,9 @@ const FeedPage = () => {
     axios.get<Feed[]>(`http://localhost:8080/feed?nickname=${user?.nickname ?? ''}`)
       .then(res => {
         setFeeds(res.data);
-        setRefreshing(false);
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 3000);
       })
       .catch(e => {
         console.log(e);
@@ -90,7 +92,7 @@ const FeedPage = () => {
     <Container>
       <Title>Feed</Title>
       {user?.userType !== UserType.AUDIENCE &&
-      <FeedInput onSubmit={uploadFeed} />
+      <FeedInput onSubmit={uploadFeed}/>
       }
       <ToolBar refreshing={isRefreshing}>
         <div className={'refresh'} onClick={loadFeeds}>REFRESH</div>

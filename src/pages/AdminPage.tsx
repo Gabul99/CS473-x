@@ -35,7 +35,7 @@ const Instruction = styled.div`
   flex-shrink: 0;
 `;
 
-const ToolBar = styled.div<{refreshing: boolean}>`
+const ToolBar = styled.div<{ refreshing: boolean }>`
   width: 100%;
   height: 40px;
   padding: 0 8px;
@@ -44,7 +44,7 @@ const ToolBar = styled.div<{refreshing: boolean}>`
   align-items: center;
   box-sizing: border-box;
   flex-shrink: 0;
-  
+
   .refresh {
     font-size: 14px;
     font-family: "bold", serif;
@@ -72,7 +72,9 @@ const AdminPage = () => {
     axios.get<Feed[]>(`http://localhost:8080/feed?nickname=${user?.nickname ?? ''}`)
       .then(res => {
         setFeeds(res.data);
-        setRefreshing(false);
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 3000);
       })
       .catch(e => {
         console.log(e);
@@ -84,13 +86,14 @@ const AdminPage = () => {
     <Container>
       <Title>Admin</Title>
       <Instruction>
-        Discuss with your team members and decide which comments to delete by what criteria!<br />(ex. fake news, hate speech, etc)
+        Discuss with your team members and decide which comments to delete by what criteria!<br/>(ex. fake news, hate
+        speech, etc)
       </Instruction>
       <ToolBar refreshing={isRefreshing}>
         <div className={'refresh'} onClick={loadFeeds}>REFRESH</div>
       </ToolBar>
       <FeedList>
-        {feeds.map(feed => <AdminFeedItem feed={feed} refresh={loadFeeds} />)}
+        {feeds.map(feed => <AdminFeedItem feed={feed} refresh={loadFeeds}/>)}
       </FeedList>
     </Container>
   );
