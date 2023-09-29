@@ -76,7 +76,8 @@ const AdminFeedItem = ({ feed, refresh }: Props) => {
 
   const handleDelete = () => {
     if (window.confirm('Do you really want to delete this feed?')) {
-      axios.put(`http://localhost:8080/feed/delete`, { feedId: feed.id })
+      axios.put(`https://cs473-test-b04585b2b629.herokuapp.com/feed/delete`, { feedId: feed.id })
+      // axios.put(`http://localhost:8080/feed/delete`, { feedId: feed.id })
         .then(() => {
           refresh()
         })

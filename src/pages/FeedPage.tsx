@@ -59,8 +59,8 @@ const FeedPage = () => {
 
   const loadFeeds = () => {
     setRefreshing(true);
-    // axios.get<Feed[]>(`https://cs473-test-b04585b2b629.herokuapp.com/feed?nickname=${user?.nickname ?? ''}`)
-    axios.get<Feed[]>(`http://localhost:8080/feed?nickname=${user?.nickname ?? ''}`)
+    axios.get<Feed[]>(`https://cs473-test-b04585b2b629.herokuapp.com/feed?nickname=${user?.nickname ?? ''}`)
+    // axios.get<Feed[]>(`http://localhost:8080/feed?nickname=${user?.nickname ?? ''}`)
       .then(res => {
         setFeeds(res.data);
         setTimeout(() => {
@@ -74,7 +74,8 @@ const FeedPage = () => {
   }
 
   const uploadFeed = (content: string, isFake: boolean, completion: () => void) => {
-    axios.post(`http://localhost:8080/feed`, {
+    axios.post(`https://cs473-test-b04585b2b629.herokuapp.com/feed`, {
+    // axios.post(`http://localhost:8080/feed`, {
       nickname: user?.nickname ?? '',
       content,
       isFake,
