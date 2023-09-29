@@ -7,6 +7,7 @@ import {Feed} from "../data/Feed";
 import {useRecoilValue} from "recoil";
 import {userAtom} from "../store/UserAtom";
 import axios from "axios";
+import UserType from "../data/UserEnum";
 
 const Container = styled.div`
   width: 640px;
@@ -28,7 +29,7 @@ const FeedList = styled.div`
   overflow-y: auto;
 `;
 
-const ToolBar = styled.div<{refreshing: boolean}>`
+const ToolBar = styled.div<{ refreshing: boolean }>`
   width: 100%;
   height: 40px;
   padding: 0 8px;
@@ -37,7 +38,7 @@ const ToolBar = styled.div<{refreshing: boolean}>`
   align-items: center;
   box-sizing: border-box;
   flex-shrink: 0;
-  
+
   .refresh {
     font-size: 14px;
     font-family: "bold", serif;
@@ -88,7 +89,9 @@ const FeedPage = () => {
   return (
     <Container>
       <Title>Feed</Title>
+      {user?.userType !== UserType.AUDIENCE &&
       <FeedInput onSubmit={uploadFeed} />
+      }
       <ToolBar refreshing={isRefreshing}>
         <div className={'refresh'} onClick={loadFeeds}>REFRESH</div>
       </ToolBar>
