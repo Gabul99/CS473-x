@@ -31,6 +31,12 @@ const Content = styled.div`
   word-break: break-all;
 `;
 
+const DeleteText = styled.div`
+  width: 100%;
+  font-size: 14px;
+  color: ${Colors.RED_DEEP};
+`;
+
 const ToolBar = styled.div`
   width: 100%;
   height: 36px;
@@ -77,7 +83,8 @@ const FeedItem = ({ feed }: Props) => {
   return (
     <Container>
       <Author>{feed.author}</Author>
-      <Content>{feed.content}</Content>
+      {feed.isDeleted && <DeleteText>This is deleted by admin</DeleteText>}
+      {!feed.isDeleted && <Content>{feed.content}</Content>}
       <ToolBar>
         <div className={'icon-button'} onClick={() => sendLike(!isLiked)}>
           {isLiked &&
