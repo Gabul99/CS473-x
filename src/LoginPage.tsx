@@ -3,6 +3,8 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import Colors from "./style/Colors";
 import UserType from "./data/UserEnum";
+import { useSetRecoilState } from "recoil";
+import {userAtom} from "./store/UserAtom";
 
 const Container = styled.div`
   width: 100%;
@@ -78,11 +80,23 @@ const ItemContainer = styled.div`
 const LoginPage = () => {
   const [userType, setUserType] = useState<UserType | undefined>();
   const [nickname, setNickname] = useState<string>('');
+  const setUserInfo = useSetRecoilState(userAtom);
 
   useEffect(() => {
     axios.get('https://cs473-test-b04585b2b629.herokuapp.com/')
       .then(res => console.log(res));
   }, []);
+
+  const onEnter = () => {
+    if (nickname === '' || !userType) {
+      window.alert('Please type nickname!');
+      return;
+    }
+    setUserInfo({
+      nickname: nickname,
+      userType: userType
+    })
+  }
 
   return (
     <Container>
@@ -96,7 +110,7 @@ const LoginPage = () => {
       {userType !== undefined &&
           <>
         <NicknameInput value={nickname} onChange={e => setNickname(e.target.value)} placeholder={'type your nickname'} />
-            <NextButton onClick={() => {}}>
+            <NextButton onClick={onEnter}>
               Enter
             </NextButton>
           </>
