@@ -29,6 +29,11 @@ const Content = styled.div`
   font-size: 14px;
   overflow: hidden;
   word-break: break-all;
+  
+  &.deleted {
+    color: ${Colors.BLACK40};
+    margin-top: -8px;
+  }
 `;
 
 const DeleteText = styled.div`
@@ -94,7 +99,7 @@ const FeedItem = ({ feed }: Props) => {
     <Container>
       <Author>{feed.author}</Author>
       {feed.isDeleted && <DeleteText>This is deleted by admin</DeleteText>}
-      {!feed.isDeleted && <Content>{feed.content}</Content>}
+      <Content className={feed.isDeleted ? 'deleted' : ''}>{feed.content}</Content>
       <ToolBar>
         <div className={'icon-button'} onClick={() => sendLike(!isLiked)}>
           {isLiked &&
