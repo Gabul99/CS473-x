@@ -22,6 +22,21 @@ const Title = styled.h1`
   flex-shrink: 0;
 `;
 
+const Instruction = styled.div`
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  background-color: ${Colors.BLUE_LIGHT};
+  font-size: 14px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+`;
+
 const FeedList = styled.div`
   width: 100%;
   flex-grow: 1;
@@ -89,9 +104,23 @@ const FeedPage = () => {
       })
   }
 
+  function getInstruction(): string {
+    switch (user?.userType) {
+      case UserType.AUDIENCE:
+        return "Read feeds and Click the 'like' to posts which you agree or feel fun!\nYou should build your opinion based on feeds and response in google form"
+      case UserType.TRUTH:
+        return "Write TRUTH news to persuade audience with your point! Also, fight against fake news!"
+      case UserType.FAKE:
+        return "Write FAKE news to mislead the audience!\nHow do you create fake news that doesn't get deleted to admin?"
+      default:
+        return '';
+    }
+  }
+
   return (
     <Container>
       <Title>Feed</Title>
+      <Instruction>{getInstruction()}</Instruction>
       {user?.userType !== UserType.AUDIENCE &&
       <FeedInput onSubmit={uploadFeed}/>
       }
