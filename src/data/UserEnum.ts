@@ -1,7 +1,7 @@
 enum UserType {
   ADMIN= 'ADMIN',
-  POSITIVE = 'POSITIVE',
-  NEGATIVE = 'NEGATIVE',
+  TRUTH = 'TRUTH',
+  FAKE = 'FAKE',
   AUDIENCE = 'AUDIENCE',
 }
 

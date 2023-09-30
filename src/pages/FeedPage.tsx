@@ -73,12 +73,12 @@ const FeedPage = () => {
       })
   }
 
-  const uploadFeed = (content: string, isFake: boolean, completion: () => void) => {
+  const uploadFeed = (content: string, completion: () => void) => {
     axios.post(`https://cs473-test-b04585b2b629.herokuapp.com/feed`, {
     // axios.post(`http://localhost:8080/feed`, {
       nickname: user?.nickname ?? '',
       content,
-      isFake,
+      isFake: user?.userType !== UserType.TRUTH,
     })
       .then(() => {
         completion();
