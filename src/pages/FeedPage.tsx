@@ -32,9 +32,9 @@ const Instruction = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   box-sizing: border-box;
-  flex-shrink: 0;
+  flex-shrink: 0;;
 `;
 
 const FeedList = styled.div`
@@ -88,12 +88,12 @@ const FeedPage = () => {
       })
   }
 
-  const uploadFeed = (content: string, completion: () => void) => {
+  const uploadFeed = (content: string, isFake: boolean, completion: () => void) => {
     axios.post(`https://cs473-test-b04585b2b629.herokuapp.com/feed`, {
     // axios.post(`http://localhost:8080/feed`, {
       nickname: user?.nickname ?? '',
       content,
-      isFake: user?.userType !== UserType.TRUTH,
+      isFake,
     })
       .then(() => {
         completion();
@@ -107,11 +107,10 @@ const FeedPage = () => {
   function getInstruction(): string {
     switch (user?.userType) {
       case UserType.AUDIENCE:
-        return "Read feeds and Click the 'like' to posts which you agree or feel fun!\nYou should build your opinion based on feeds and response in google form"
-      case UserType.TRUTH:
-        return "Write TRUTH news to persuade audience with your point! Also, fight against fake news!"
-      case UserType.FAKE:
-        return "Write FAKE news to mislead the audience!\nHow do you create fake news that doesn't get deleted to admin?"
+        return "Read feeds and Click the 'like' to posts which you agree or feel fun! You should build your opinion based on feeds and response in google form"
+      case UserType.AGREE:
+      case UserType.DISAGREE:
+        return "Write real news or fake news to persuade audience with your opinion! 1) When writing fake news, try to create fake news that seems real so it doesn't get deleted by Admin! 2) Try to counter your opponent's fake news!";
       default:
         return '';
     }

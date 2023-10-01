@@ -98,8 +98,8 @@ const LoginPage = () => {
       <h1 className={'title'}>CS473 - X</h1>
       <CenterArea>
         <Item className={userType === 'ADMIN' ? 'selected' : ''} name={'Admin'} teamNum={1} onClick={() => setUserType(UserType.ADMIN)} />
-        <Item className={userType === 'TRUTH' ? 'selected' : ''} name={'Truth Side'} teamNum={2} onClick={() => setUserType(UserType.TRUTH)} />
-        <Item className={userType === 'FAKE' ? 'selected' : ''} name={'Fake Side'} teamNum={3} onClick={() => setUserType(UserType.FAKE)} />
+        <Item className={userType === 'AGREE' ? 'selected' : ''} name={'Agree Side'} teamNum={2} onClick={() => setUserType(UserType.AGREE)} />
+        <Item className={userType === 'DISAGREE' ? 'selected' : ''} name={'Disagree Side'} teamNum={3} onClick={() => setUserType(UserType.DISAGREE)} />
         <Item className={userType === 'AUDIENCE' ? 'selected' : ''} name={'Audience'} teamNum={4} onClick={() => setUserType(UserType.AUDIENCE)} />
       </CenterArea>
       {userType !== undefined &&
