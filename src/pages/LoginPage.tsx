@@ -95,7 +95,7 @@ const LoginPage = () => {
       return;
     }
     setUserInfo({
-      type: 'A',
+      type: topicType ?? 'A',
       nickname: nickname,
       userType: userType
     })
