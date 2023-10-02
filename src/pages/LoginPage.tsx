@@ -14,6 +14,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 16px;
+  overflow-y: auto;
   
   .title {
     font-size: 24px;
@@ -33,6 +34,11 @@ const CenterArea = styled.div`
 `;
 
 const NicknameInput = styled.input``;
+
+const InputAlertText = styled.p`
+  font-size: 12px;
+  margin-bottom: -8px;
+`;
 
 const NextButton = styled.button`
   all: unset;
@@ -78,6 +84,7 @@ const ItemContainer = styled.div`
 `;
 
 const LoginPage = () => {
+  const [topicType, setTopicType] = useState<'A' | 'B' | null>(null);
   const [userType, setUserType] = useState<UserType | undefined>();
   const [nickname, setNickname] = useState<string>('');
   const setUserInfo = useSetRecoilState(userAtom);
@@ -88,6 +95,7 @@ const LoginPage = () => {
       return;
     }
     setUserInfo({
+      type: 'A',
       nickname: nickname,
       userType: userType
     })
@@ -97,13 +105,45 @@ const LoginPage = () => {
     <Container>
       <h1 className={'title'}>CS473 - X</h1>
       <CenterArea>
-        <Item className={userType === 'ADMIN' ? 'selected' : ''} name={'Admin'} teamNum={1} onClick={() => setUserType(UserType.ADMIN)} />
-        <Item className={userType === 'AGREE' ? 'selected' : ''} name={'Agree Side'} teamNum={2} onClick={() => setUserType(UserType.AGREE)} />
-        <Item className={userType === 'DISAGREE' ? 'selected' : ''} name={'Disagree Side'} teamNum={3} onClick={() => setUserType(UserType.DISAGREE)} />
-        <Item className={userType === 'AUDIENCE' ? 'selected' : ''} name={'Audience'} teamNum={4} onClick={() => setUserType(UserType.AUDIENCE)} />
+        <p>For Topic A</p>
+        <Item className={topicType === 'A' && userType === 'ADMIN' ? 'selected' : ''} name={'Admin'} teamNum={'1'} onClick={() => {
+          setTopicType('A');
+          setUserType(UserType.ADMIN)
+        }} />
+        <Item className={topicType === 'A' && userType === 'AGREE' ? 'selected' : ''} name={'Agree Side'} teamNum={'2'} onClick={() => {
+          setTopicType('A');
+          setUserType(UserType.AGREE)
+        }} />
+        <Item className={topicType === 'A' && userType === 'DISAGREE' ? 'selected' : ''} name={'Disagree Side'} teamNum={'3'} onClick={() => {
+          setTopicType('A');
+          setUserType(UserType.DISAGREE)
+        }} />
+        <Item className={topicType === 'A' && userType === 'AUDIENCE' ? 'selected' : ''} name={'Audience'} teamNum={'4, 5, 6 in second half'} onClick={() => {
+          setTopicType('A');
+          setUserType(UserType.AUDIENCE)
+        }} />
+        <p>For Topic B</p>
+        <Item className={topicType === 'B' && userType === 'ADMIN' ? 'selected' : ''} name={'Admin'} teamNum={'4'} onClick={() => {
+          setTopicType('B');
+          setUserType(UserType.ADMIN)
+        }} />
+        <Item className={topicType === 'B' && userType === 'AGREE' ? 'selected' : ''} name={'Agree Side'} teamNum={'5'} onClick={() => {
+          setTopicType('B');
+          setUserType(UserType.AGREE)
+        }} />
+        <Item className={topicType === 'B' && userType === 'DISAGREE' ? 'selected' : ''} name={'Disagree Side'} teamNum={'6'} onClick={() => {
+          setTopicType('B');
+          setUserType(UserType.DISAGREE)
+        }} />
+        <Item className={topicType === 'B' && userType === 'AUDIENCE' ? 'selected' : ''} name={'Audience'} teamNum={'1, 2, 3 in second half'} onClick={() => {
+          setTopicType('B');
+          setUserType(UserType.AUDIENCE)
+        }} />
+
       </CenterArea>
       {userType !== undefined &&
           <>
+            <InputAlertText>Please type your 'unique' nickname! This system identify users by nickname.</InputAlertText>
         <NicknameInput value={nickname} onChange={e => setNickname(e.target.value)} placeholder={'type your nickname'} />
             <NextButton onClick={onEnter}>
               Enter
@@ -117,7 +157,7 @@ const LoginPage = () => {
 interface ItemProps {
   className: string;
   name: string;
-  teamNum: number;
+  teamNum: string;
   onClick: () => void;
 }
 

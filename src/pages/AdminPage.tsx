@@ -72,7 +72,7 @@ const AdminPage = () => {
 
   const loadFeeds = () => {
     setRefreshing(true);
-    axios.get<Feed[]>(`https://cs473-test-b04585b2b629.herokuapp.com/feed?nickname=${user?.nickname ?? ''}`)
+    axios.get<Feed[]>(`https://cs473-test-b04585b2b629.herokuapp.com/feed?user=${user?.type ?? 'A'}&nickname=${user?.nickname ?? ''}`)
     // axios.get<Feed[]>(`http://localhost:8080/feed?nickname=${user?.nickname ?? ''}`)
       .then(res => {
         setFeeds(res.data);

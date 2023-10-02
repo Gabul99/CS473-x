@@ -84,6 +84,7 @@ const FeedItem = ({ feed }: Props) => {
     setLiked(value)
     axios.post(`https://cs473-test-b04585b2b629.herokuapp.com/feed/like`, {
     // axios.post(`http://localhost:8080/feed/like`, {
+      type: user?.type ?? 'A',
       nickname: user?.nickname ?? '',
       feedId: feed.id
     })
