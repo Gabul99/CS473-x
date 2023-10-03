@@ -5,6 +5,7 @@ import Colors from "../style/Colors";
 import UserType from "../data/UserEnum";
 import {useSetRecoilState} from "recoil";
 import {userAtom} from "../store/UserAtom";
+import {useNavigate} from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -98,9 +99,15 @@ const LoginPage = () => {
   const [nickname, setNickname] = useState<string>('');
   const setUserInfo = useSetRecoilState(userAtom);
 
+  const navigate = useNavigate();
+
   const onEnter = () => {
     if (nickname === '' || !userType) {
       window.alert('Please type nickname!');
+      return;
+    }
+    if (nickname === 'result') {
+      navigate('/CS473-x/result');
       return;
     }
     setUserInfo({

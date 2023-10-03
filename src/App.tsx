@@ -24,7 +24,7 @@ function App() {
   const user = useRecoilValue(userAtom);
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
       <Route path="/CS473-x" element={
         <Container>
@@ -41,7 +41,7 @@ function App() {
       }>
       </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
