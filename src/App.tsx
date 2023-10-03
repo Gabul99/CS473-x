@@ -8,7 +8,7 @@ import {userAtom} from "./store/UserAtom";
 import UserType from "./data/UserEnum";
 import FeedPage from "./pages/FeedPage";
 import AdminPage from "./pages/AdminPage";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
 import ResultPage from "./pages/ResultPage";
 
 const Container = styled.div`
@@ -24,7 +24,7 @@ function App() {
   const user = useRecoilValue(userAtom);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
       <Route path="/CS473-x" element={
         <Container>
@@ -41,7 +41,7 @@ function App() {
       }>
       </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
